@@ -32,37 +32,36 @@ void GetElem(SqList *L,int position,int e)//获得某个位置的元素。
 int LocateElem(SqList *L,int e)//找元素所在的位置，如果找不到，则返回-1，表示错误。
 {  int i=0;
    while(e!=L->elem[i])
-    	i++;
+    {  if(i==L->length)
+       break;
+       else  i++;
+    }
    if(i==L->length)
       return -1;
    else 
       return i;
 }
 
-void PriorElem(SqList *L,int position,int pre_e)//找指定元素的前一个元素。
-{   if(position>=L->length)
+void PriorElem(SqList *L,int cur_e,int pre_e)//找指定元素的前一个元素。
+{  int index; 
+   index=LocateElem(L,cur_e);
+   if(index==0)
+      cout<<"该元素位于表头，没有前一位元素。"<<endl;
+   else if(index>0)
+      pre_e=L->elem[index-1];
+   if(index==-1)
       cout<<"输入位置超过表长，请重新输入。"<<endl;
-    else
-    {  int index; 
-       index=LocateElem(L,position);
-       if(index==0)
-          cout<<"该元素位于表头，没有前一位元素。"<<endl;
-       else if(index>0)
-          pre_e=L->elem[index-1];
-    }
 }
 
-void NextElem(SqList *L,int position,int next_e)//找指定元素的后一个元素。
-{   if(position>=L->length)
-       cout<<"输入位置超过表长，请重新输入。"<<endl;
-    else
-    {  int index;
-       index=LocateElem(L,position);
-       if(index==L->length-1)
-         cout<<"该元素位于表尾，没有后一位元素。"<<endl;
-       else if(index>0)
-         next_e=L->elem[index+1];
-    } 
+void NextElem(SqList *L,int cur_e,int next_e)//找指定元素的后一个元素。
+{  int index;
+   index=LocateElem(L,cur_e);
+   if(index==L->length-1)
+      cout<<"该元素位于表尾，没有后一位元素。"<<endl;
+   else if(index>0)
+      next_e=L->elem[index+1]; 
+   if(index==-1)
+      cout<<"输入位置超过表长，请重新输入。"<<endl;
 }
 
 void ListInsert(SqList *L,int position,int insert_e)//在指定位置中插入一个元素。
