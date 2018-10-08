@@ -91,6 +91,7 @@ void ListDelete(SqList *L,int position)//在指定位置中删除一个元素。
       else
       { for(int j=position;j<L->length-1;j++)
           L->elem[j]=L->elem[j+1];
+        L->elem[L->length-1]=0;
         L->length=L->length-1;
       }
    }
